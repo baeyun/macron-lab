@@ -3,3 +3,32 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+* {
+  box-sizing: border-box;
+}
+
+header > * {
+  vertical-align: middle;
+}
+
+.select-nav {
+  display: inline-block;
+  max-width: 650px;
+  width: 100%;
+}
+
+.ReactCodeMirror {
+  width: 50%;
+  height: 100%;
+  float: right;
+  box-shadow: 0 0 4px 0 rgba(0,0,0,.15);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.CodeMirror {
+  padding: 20px;
+  font-size: 17px;
+  height: inherit !important;
+}
