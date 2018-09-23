@@ -19,11 +19,11 @@ const defaultPreviewContent = /*html*/`
   <p><a href="javascript:void(0)">Terms & conditions</a> <a href="javascript:void(0)">About</a> <a href="javascript:void(0)">GitHub source</a></p>
 `
 
-function copyActionHandler(target, that){
+function copyActionHandler(target, content){
   var input = document.createElement('input')
 
   document.body.appendChild(input)
-  input.value = that
+  input.value = content
   input.select()
   document.execCommand('copy', false)
   input.remove()
@@ -35,8 +35,12 @@ function copyActionHandler(target, that){
     document.getElementById('copy-notify').remove()
   }, 500)
 
-  // return that
+  // return content
 }
+
+// function runActionHandler(script) {
+//   eval(script)
+// }
 
 class App extends Component {
   state = {
@@ -66,6 +70,7 @@ class App extends Component {
     previewElement.innerHTML = selectedOption.content.default || defaultPreviewContent
 
     // TODO: Evaluate editor script
+    eval(selectedOption.code.default)
     this.editor.getCodeMirror().setValue(selectedOption.code.default)
   }
 
@@ -107,7 +112,7 @@ class App extends Component {
           <div id="editor">
             <div id="control-bar">
               <span style={{textTransform: "uppercase", fontWeight: "bold", color: '#777', verticalAlign: '-webkit-baseline-middle', fontSize: 14, display: 'inline-block'}}>Live Editor</span>
-              <button id="run">Run</button>
+              <button id="run" onClick={() => eval(this.editor.getCodeMirror().getValue())}>Run</button>
               <button id="copy" onClick={(e) => copyActionHandler(e.target, this.editor.getCodeMirror().getValue())}>Copy</button>
             </div>
 
