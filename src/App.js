@@ -1,47 +1,72 @@
 import React, { Component } from 'react'
 import Select from 'react-select'
-import CodeMirror from 'react-codemirror'
+import CodeMirror, { getCodeMirror } from 'react-codemirror'
 
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/mode/javascript/javascript'
 import 'codemirror/theme/ambiance.css'
+import mappedOptions from './mappedOptions'
+import logosrc from './logo'
 
-const options = [
-  { value: 'activate', label: 'activate' },
-  { value: 'clone', label: 'clone' },
-  { value: 'close', label: 'close' },
-  { value: 'focus', label: 'focus' },
-  { value: 'focusOnStartup', label: 'focusOnStartup' },
-  { value: 'frameless', label: 'frameless' },
-  { value: 'height', label: 'height' },
-  { value: 'hide', label: 'hide' },
-  { value: 'hideInTaskbar', label: 'hideInTaskbar' },
-  { value: 'hideOnStartup', label: 'hideOnStartup' },
-  { value: 'isActive', label: 'isActive' },
-  { value: 'isFocused', label: 'isFocused' },
-  { value: 'isKeyboardFocused', label: 'isKeyboardFocused' },
-  { value: 'isVisible', label: 'isVisible' },
-  { value: 'maxHeight', label: 'maxHeight' },
-  { value: 'maxWidth', label: 'maxWidth' },
-  { value: 'minHeight', label: 'minHeight' },
-  { value: 'minWidth', label: 'minWidth' },
-  { value: 'resizable', label: 'resizable' },
-  { value: 'show', label: 'show' },
-  { value: 'startupFromCenter', label: 'startupFromCenter' },
-  { value: 'state', label: 'state' },
-  { value: 'title', label: 'title' },
-  { value: 'width', label: 'width' }
-]
+const macron = window.macron || {}
+const defaultPreviewContent = /*html*/`
+  <img src="${logosrc}" alt="Macron Logo">
+
+  <h2>Welcome to MacronLab</h2>
+
+  <p>Start searching with the searchbar above to get started.</p>
+
+  <p><a href="javascript:void(0)">Terms & conditions</a> <a href="javascript:void(0)">About</a> <a href="javascript:void(0)">GitHub source</a></p>
+`
+
+function copyActionHandler(target, that){
+  var input = document.createElement('input')
+
+  document.body.appendChild(input)
+  input.value = that
+  input.select()
+  document.execCommand('copy', false)
+  input.remove()
+
+  // "Copied!" message
+  target.parentElement.innerHTML += "<span id='copy-notify' style='color: green;vertical-align:-webkit-baseline-middle;float: right;margin:7px 10px 0 0;'>Copied!</span>"
+
+  setTimeout(() => {
+    document.getElementById('copy-notify').remove()
+  }, 500)
+
+  // return that
+}
 
 class App extends Component {
   state = {
-    selectedOption: null,
-    sampleCode: '// type your code...'
+    selectedOption: {},
+    sampleCode: `/**
+ * MacronLab
+ * 
+ * Made with 🧡 by:
+ * 		@bukharim96
+ * 		@undefinedbuddy
+ */
+`
+  }
+
+  componentDidMount() {
+    const previewElement = document.getElementById('preview')
+
+    previewElement.innerHTML = defaultPreviewContent
   }
 
   handleChange = (selectedOption) => {
-    this.setState({ selectedOption });
-    console.log(`Option selected:`, selectedOption);
+    const previewElement = document.getElementById('preview')
+
+    this.setState({ selectedOption })
+    this.setState({ sampleCode: selectedOption.code.default || this.state.sampleCode })
+
+    previewElement.innerHTML = selectedOption.content.default || defaultPreviewContent
+
+    // TODO: Evaluate editor script
+    this.editor.getCodeMirror().setValue(selectedOption.code.default)
   }
 
   updateCode(newCode) {
@@ -56,11 +81,10 @@ class App extends Component {
     return (
       <main style={{margin: '0 auto', maxWidth: 1200, padding: '0 20px'}}>
         <header style={{textAlign: 'center', margin: '20px 0 0'}} id="header">
-          <span style={{borderRadius: 50, width: 48, height: 48, backgroundColor: '#777', position: 'relative', display: 'inline-block', marginRight: 25}}></span>
+          <img id="logo" src={logosrc} style={{borderRadius: 50, width: 48, height: 48, position: 'relative', display: 'inline-block', marginRight: 25}}></img>
           <Select
-            value={selectedOption}
             onChange={this.handleChange}
-            options={options}
+            options={mappedOptions}
             className='select-nav'
             placeholder='How to...'
             styles={{
@@ -74,45 +98,31 @@ class App extends Component {
                 zIndex: 1000
               })
             }}
-            theme={(theme) => ({
-              borderRadius: 0,
-              colors: {
-                text: 'orangered',
-                primary25: 'hotpink',
-                primary: 'black',
-              },
-            })}
           />
-          <span style={{borderRadius: 50, width: 48, height: 48, backgroundColor: '#777', position: 'relative', display: 'inline-block', marginLeft: 25}}></span>
         </header>
         
-        <div style={{height: 500, marginTop: 60}}>
-          <section id="preview" style={{minWidth: '50%', display: 'inline-block', height: '100%'}}>
-            <p>Click this button to change the current window's title.</p>
-            <button>Change Title</button>
-          </section>
-          {/* <textarea id="code" ></textarea> */}
-          <CodeMirror
-            mode='javascript'
-            value={this.state.code}
-            onChange={this.updateCode.bind(this)}
-            defaultValue={`import Macron, { Window } from 'macron'
+        <div style={{height: 500, marginTop: 60, maxWidth: '100%'}}>
+          <section id="preview" style={{width: '50%', display: 'inline-block', height: '100%', textAlign: 'center'}}/>
 
-const config = {
-  title: 'HelloWorld',
-  sourcePath: '../public'
-}
+          <div id="editor">
+            <div id="control-bar">
+              <span style={{textTransform: "uppercase", fontWeight: "bold", color: '#777', verticalAlign: '-webkit-baseline-middle', fontSize: 14, display: 'inline-block'}}>Live Editor</span>
+              <button id="run">Run</button>
+              <button id="copy" onClick={(e) => copyActionHandler(e.target, this.editor.getCodeMirror().getValue())}>Copy</button>
+            </div>
 
-window.addEventListener(
-  'DOMContentLoaded',
-  () => Window.create(config)
-)
-`}
-            options={{
-              // scrollbarStyle: 'null',
-              theme: 'ambiance'
-            }}
-          />
+            <CodeMirror
+              mode='javascript'
+              value={this.state.sampleCode}
+              onChange={this.updateCode.bind(this)}
+              defaultValue={this.state.sampleCode}
+              ref={(c) => this.editor = c}
+              options={{
+                theme: 'ambiance',
+                autofocus: true
+              }}
+            />
+          </div>
         </div>
       </main>
     );
