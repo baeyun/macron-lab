@@ -24,7 +24,16 @@ const defaultPreviewContent = /*html*/`
     to access parts of the machine which would otherwise be difficult with web-based JavaScript alone. These modules
     can be directly integrated with HTML5.
   </p>
-  <p>To get started, use the searchbar above to find demos of what you needed most.</p>
+
+  <h3>Quick Guide</h3>
+  <p>
+    To get started:
+    <ul>
+      <li>Use the searchbar above to find demos of what you needed most.</li>
+      <li>Edit the editor to make changes and click the <b>Run</b> button to apply the changes.</li>
+      <li>If there is any broken content, please consider contacting us.</li>
+    </ul>
+  </p>
 
   <p><a href="javascript:void(0)">Terms & conditions</a> <a href="javascript:void(0)">About</a> <a href="javascript:void(0)">GitHub source</a></p>
 `
@@ -44,8 +53,6 @@ function copyActionHandler(target, content){
   setTimeout(() => {
     document.getElementById('copy-notify').remove()
   }, 500)
-
-  // return content
 }
 
 class App extends Component {
@@ -91,7 +98,7 @@ class App extends Component {
     return (
       <main style={{margin: '0 auto', maxWidth: 1200, padding: '0 20px'}}>
         <header style={{textAlign: 'center', margin: '20px 0 0'}} id="header">
-          <img id="logo" src={logosrc} style={{borderRadius: 50, width: 48, height: 48, position: 'relative', display: 'inline-block', marginRight: 25}}></img>
+          <img id="logo" src={logosrc} style={{textAlign: 'center', borderRadius: 50, width: 48, height: 48, position: 'relative', display: 'inline-block', marginRight: 25}}></img>
           <Select
             onChange={this.handleChange}
             options={mappedOptions}
@@ -112,7 +119,7 @@ class App extends Component {
         </header>
         
         <div style={{height: 500, marginTop: 60, maxWidth: '100%'}}>
-          <section id="preview" style={{lineHeight: 2, width: '50%', display: 'inline-block', height: '100%', textAlign: 'center'}}/>
+          <section id="preview" style={{lineHeight: 2, width: '50%', display: 'inline-block', height: '100%'}}/>
 
           <div id="editor">
             <div id="control-bar">

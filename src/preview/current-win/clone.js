@@ -3,5 +3,5 @@ export default
 
 <p>Use <code>clone()</code> to clone the current window.</p>
 
-<button onclick="require('macron').CurrentWindow.clone()">Clone this window</button>
+<button id="clone-window">Clone this window</button>
 `

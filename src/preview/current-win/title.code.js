@@ -1,8 +1,10 @@
 export default `
-const { CurrentWindow } = require('macron')
+var currentWindow = require('macron').CurrentWindow;
 
 document.getElementById('change-title').addEventListener(
   'click',
-  () => CurrentWindow.title('Hello')
+  function() {
+    currentWindow.title(document.getElementById('change-title-input').value);
+  }
 )
 `

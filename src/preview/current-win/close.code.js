@@ -3,6 +3,8 @@ export default
 
 document.getElementById('close-window').addEventListener(
   'click',
-  () => require('macron').CurrentWindow.close()
+  function() {
+    require('macron').CurrentWindow.close();
+  }
 );
 `

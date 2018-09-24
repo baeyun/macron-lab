@@ -6,5 +6,7 @@ export default
   on the uninitialized window.
 </p>
 
+<p>Try manually clearing focus over this window then hovering over the button below to regain focus.</p>
+
 <button id="focus">Focus on window</button>
 `

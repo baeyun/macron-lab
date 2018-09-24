@@ -3,5 +3,7 @@ export default /*html*/`
   <p>
     Changing a window title uses <code>CurrentWindow.title()</code>
   </p>
-  <button id="change-title">Change title</button>
+  
+  <input id="change-title-input" placeholder="Enter a title" />
+  <button id="change-title">Set title</button>
 `

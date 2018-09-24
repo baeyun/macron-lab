@@ -1,10 +1,12 @@
 export default
 `// macron.CurrentWindow.focus()
 
-var macron = require('macron')
+var currentWindow = require('macron').CurrentWindow;
 
 document.getElementById('focus').addEventListener(
-  'click',
-  () => !macron.CurrentWindow.focus() && macron.CurrentWindow.focus()
-)
+  'hover',
+  function() {
+    !currentWindow.focus() && currentWindow.focus();
+  }
+);
 `

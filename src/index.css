@@ -33,6 +33,10 @@ header > * {
   overflow: auto;
 }
 
+/* #preview ul {
+  text-align: left;
+} */
+
 #editor {
   width: 50%;
   height: 100%;
