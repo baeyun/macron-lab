@@ -13,8 +13,18 @@ const defaultPreviewContent = /*html*/`
   <img src="${logosrc}" alt="Macron Logo">
 
   <h2>Welcome to MacronLab</h2>
-
-  <p>Start searching with the searchbar above to get started.</p>
+  <p>
+    Macron is a cutting edge framework for building next generation desktop apps with simple technologies like HTML5.
+    There is absolutely no limit to what you can build with Macron. Think of a music app built with VueJS
+    and ES6/7, a banking app built with TypeScript, Angular 2 for logic and layout and C++ for backend, your favorite todo app with jQuery, a sophisticated
+    ReactJS calculator that uses Python with <b>NumPy</b> and <b>matplotlib</b>, the list remains endless.
+  </p>
+  <p>
+    To make things more sophisticated, native C/C++ or Python modules, libraries and/or packages could be used
+    to access parts of the machine which would otherwise be difficult with web-based JavaScript alone. These modules
+    can be directly integrated with HTML5.
+  </p>
+  <p>To get started, use the searchbar above to find demos of what you needed most.</p>
 
   <p><a href="javascript:void(0)">Terms & conditions</a> <a href="javascript:void(0)">About</a> <a href="javascript:void(0)">GitHub source</a></p>
 `
@@ -37,10 +47,6 @@ function copyActionHandler(target, content){
 
   // return content
 }
-
-// function runActionHandler(script) {
-//   eval(script)
-// }
 
 class App extends Component {
   state = {
@@ -69,9 +75,8 @@ class App extends Component {
 
     previewElement.innerHTML = selectedOption.content.default || defaultPreviewContent
 
-    // TODO: Evaluate editor script
-    eval(selectedOption.code.default)
     this.editor.getCodeMirror().setValue(selectedOption.code.default)
+    eval(selectedOption.code.default)
   }
 
   updateCode(newCode) {
@@ -107,7 +112,7 @@ class App extends Component {
         </header>
         
         <div style={{height: 500, marginTop: 60, maxWidth: '100%'}}>
-          <section id="preview" style={{width: '50%', display: 'inline-block', height: '100%', textAlign: 'center'}}/>
+          <section id="preview" style={{lineHeight: 2, width: '50%', display: 'inline-block', height: '100%', textAlign: 'center'}}/>
 
           <div id="editor">
             <div id="control-bar">

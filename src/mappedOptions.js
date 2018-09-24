@@ -3,14 +3,12 @@ export default [
    * Current Window
    */
   { value: 'activate', label: 'Current Window', isDisabled: true },
-  { value: 'activate', label: 'Activate window' },
-  { value: 'clone', label: 'Clone current window' },
-  { value: 'close', label: 'Close window', content: `
-    Close window
-  `},
-  { value: 'focus', label: 'Enable focus on window' },
-  { value: 'focusOnStartup', label: 'Focus on start' },
-  { value: 'frameless', label: 'Remove window frame' },
+  { value: 'activate', label: 'Activate window', content: require('./preview/current-win/activate'), code: require('./preview/current-win/activate.code') },
+  { value: 'clone', label: 'Clone current window', content: require('./preview/current-win/clone'), code: require('./preview/current-win/clone.code') },
+  { value: 'close', label: 'Close window', content: require('./preview/current-win/close'), code: require('./preview/current-win/close.code')},
+  { value: 'focus', label: 'Enable focus on window', content: require('./preview/current-win/focus'), code: require('./preview/current-win/focus.code') },
+  { value: 'focus', label: 'Focus on start' },
+  { value: 'frameless', label: 'Remove window frame', content: require('./preview/current-win/frameless'), code: require('./preview/current-win/frameless.code') },
   { value: 'height', label: 'Change height' },
   { value: 'hide', label: 'Hide window' },
   { value: 'hideInTaskbar', label: 'Hide from taskbar' },
