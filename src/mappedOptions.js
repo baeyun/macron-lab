@@ -59,4 +59,10 @@ export default [
   { value: 'read_dir', label: 'Read directory contents', content: require('./preview/fs/read_dir'), code: require('./preview/fs/read_dir.code') },
   { value: 'read_dir_glob', label: 'Read directory contents with patterns (advanced)', content: require('./preview/fs/read_dir_glob'), code: require('./preview/fs/read_dir_glob.code') },
 
+  /**
+   * Menus
+   */
+  { value: 'macronMenubar', label: 'Menus', isDisabled: true },
+  { value: 'macronMenubar', label: 'Creating advanced menubars', content: require('./preview/menubars/macronMenubar'), code: require('./preview/menubars/macronMenubar.code') },
+  { value: 'contextMenu', label: 'Creating context menus', content: require('./preview/menubars/contextMenu'), code: require('./preview/menubars/contextMenu.code') },
 ]
