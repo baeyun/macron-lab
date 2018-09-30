@@ -58,6 +58,7 @@ export default [
   { value: 'rmdir_empty', label: 'Remove empty directory', content: require('./preview/fs/rmdir_empty'), code: require('./preview/fs/rmdir_empty.code') },
   { value: 'read_dir', label: 'Read directory contents', content: require('./preview/fs/read_dir'), code: require('./preview/fs/read_dir.code') },
   { value: 'read_dir_glob', label: 'Read directory contents with patterns (advanced)', content: require('./preview/fs/read_dir_glob'), code: require('./preview/fs/read_dir_glob.code') },
+  { value: 'system', label: 'System', content: require('./preview/system/system'), code: require('./preview/system/system.code') },
 
   /**
    * Menus
